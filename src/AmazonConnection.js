@@ -14,7 +14,10 @@ module.exports = awsConfig => {
 
       // Fix the Host header, since HttpConnector.makeReqParams() appends
       // the port number which will cause signature verification to fail
-      req.headers.Host = req.hostname
+      req.headers.host = req.hostname
+      if(req.headers.Host) {
+        delete req.headers.Host;
+      }
 
       if (params.body) {
         req.headers['content-length'] = Buffer.byteLength(params.body, 'utf8')
